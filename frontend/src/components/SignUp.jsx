@@ -39,7 +39,7 @@ const SignUp = () => {
 
       if (data.success) {
         alert('Account created successfully!');
-        navigate('/');
+        navigate('/home');
       } else {
         setError(data.message || 'Signup failed');
       }
