@@ -5,6 +5,7 @@
 .env.test.local
 .env.production.local
 
+# Dependencies
 node_modules/
 
 # Logs
@@ -37,9 +38,6 @@ jspm_packages/
 
 # Yarn Integrity file
 .yarn-integrity
-
-# dotenv environment variables file
-.env
 
 # Mac files
 .DS_Store

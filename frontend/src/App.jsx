@@ -12,16 +12,16 @@ const App = () => {
       <div className="min-h-screen bg-gray-50">
         <Routes>
           <Route path="/" element={<SignIn />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route 
-            path="/home" 
+            path="/Home" 
             element={
               <ProtectedRoute>
                 <Home />
               </ProtectedRoute>
             } 
           />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/signin" element={<SignIn />} />
         </Routes>
       </div>
     </BrowserRouter>

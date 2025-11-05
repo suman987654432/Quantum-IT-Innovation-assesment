@@ -40,7 +40,7 @@ const SignIn = () => {
         localStorage.setItem('user', JSON.stringify(data.user));
         
         alert('Login successful!');
-        navigate('/home');
+        navigate('/Home');
       } else {
         setError(data.message || 'Login failed');
       }

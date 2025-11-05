@@ -27,7 +27,7 @@ const SignUp = () => {
     setError('');
 
     try {
-      const response = await fetch('https://quantum-it-innovation-assesment-1.onrender.com/api/users/signup', {
+      const signupResponse = await fetch('https://quantum-it-innovation-assesment-1.onrender.com/api/users/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -35,13 +35,48 @@ const SignUp = () => {
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
+      const signupData = await signupResponse.json();
 
-      if (data.success) {
-        alert('Account created successfully!');
-        navigate('/home');
+      if (signupData.success) {
+        if (signupData.token && signupData.user) {
+          localStorage.setItem('token', signupData.token);
+          localStorage.setItem('user', JSON.stringify(signupData.user));
+          alert('Account created successfully!');
+          navigate('/Home');
+        } else {
+          
+          try {
+            const signinResponse = await fetch('https://quantum-it-innovation-assesment-1.onrender.com/api/users/signin', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                email: formData.email,
+                password: formData.password
+              }),
+            });
+
+            const signinData = await signinResponse.json();
+
+            if (signinData.success && signinData.token && signinData.user) {
+              localStorage.setItem('token', signinData.token);
+              localStorage.setItem('user', JSON.stringify(signinData.user));
+              
+              alert('Account created successfully!');
+              navigate('/Home');
+            } else {
+              alert('Account created successfully! Please sign in.');
+              navigate('/signin');
+            }
+          // eslint-disable-next-line no-unused-vars
+          } catch (signinError) {
+            alert('Account created successfully! Please sign in.');
+            navigate('/signin');
+          }
+        }
       } else {
-        setError(data.message || 'Signup failed');
+        setError(signupData.message || 'Signup failed');
       }
     
     // eslint-disable-next-line no-unused-vars
